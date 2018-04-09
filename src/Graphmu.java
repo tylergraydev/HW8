@@ -89,6 +89,13 @@ public class Graphmu implements Graph  {
         return matrix[i][j];
     }
 
+
+    public String toString(){
+        return printMatrix();
+    }
+    /*
+
+
     @Override
     public String toString() {
         return "Graphmu{" +
@@ -96,7 +103,7 @@ public class Graphmu implements Graph  {
                 ", numEdge=" + numEdge +
                 ", Mark=" + Mark +
                 '}';
-    }
+    }*/
 
     public String printMatrix(){
         String s = "  ";
