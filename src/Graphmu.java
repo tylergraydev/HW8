@@ -91,19 +91,9 @@ public class Graphmu implements Graph  {
 
 
     public String toString(){
-        return printMatrix();
+        return "Edges: "+ e() + "\n" + "Vertices: " + n() + "\n" + printMatrix();
     }
-    /*
-
-
-    @Override
-    public String toString() {
-        return "Graphmu{" +
-                "matrix=\n" + printMatrix() +
-                ", numEdge=" + numEdge +
-                ", Mark=" + Mark +
-                '}';
-    }*/
+   
 
     public String printMatrix(){
         String s = "  ";
