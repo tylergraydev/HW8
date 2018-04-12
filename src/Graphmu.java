@@ -1,3 +1,13 @@
+/*
+Tyler Gray
+implements the Graph ADT
+Uses a triangle representation to save space with the matrix
+This one used the Upper Triangle Representation.
+Had to redo majority to support the upper triangle over the lower bound triangle.
+
+
+ */
+
 import java.util.Arrays;
 
 
@@ -23,8 +33,10 @@ public class Graphmu implements Graph  {
     /** @return generated triangle array */
     public int[][] genTri(int n){
         int[][] tri = new int[n][];
-        for(int i = 0; i < n; i++){
-            tri[i] = new int[i+1];
+        int row = 0;
+        for(int i = n; i > 0; i--){
+
+            tri[row++] = new int[i];
 
         }
         return tri;
@@ -53,39 +65,39 @@ public class Graphmu implements Graph  {
     /** Set the weight for an edge */
     public void setEdge(int i, int j, int wt) {
         assert wt!=0 : "Cannot set weight to 0";
-        if(i>j) {
-            if (matrix[i][j] == 0) numEdge++;
-            matrix[i][j] = wt;
+        if(i<j) {
+            if (matrix[i][j-i] == 0) numEdge++;
+            matrix[i][j-i] = wt;
             return ;
         }
 
-        if (matrix[j][i] == 0) numEdge++;
-        matrix[j][i] = wt;
+        if (matrix[j][i-j] == 0) numEdge++;
+        matrix[j][i-j] = wt;
     }
 
     /** Delete an edge */
     public void delEdge(int i, int j) {
-        if(i>j) {
-            if (matrix[i][j] != 0) numEdge--;
-            matrix[i][j] = 0;
+        if(i<j) {
+            if (matrix[i][j-i] != 0) numEdge--;
+            matrix[i][j-i] = 0;
             return;
         }
-        if (matrix[j][i] != 0) numEdge--;
-        matrix[j][i] = 0;
+        if (matrix[j][i-j] != 0) numEdge--;
+        matrix[j][i-j] = 0;
     }
 
     /** Determine if an edge is in the graph */
     public boolean isEdge(int i, int j)
     {
-        if(j>i) return matrix[j][i] != 0;
-        return matrix[i][j] != 0;
+        if(i<j) return matrix[i][j-i] != 0;
+        return matrix[j][i-j] != 0;
 
 
     }
 
     /** @return an edge's weight */
     public int weight(int i, int j) {
-        if(j>i) return matrix[j][i];
+        if(i<j) return matrix[j][i];
         return matrix[i][j];
     }
 
@@ -93,8 +105,34 @@ public class Graphmu implements Graph  {
     public String toString(){
         return "Edges: "+ e() + "\n" + "Vertices: " + n() + "\n" + printMatrix();
     }
-   
 
+    public String printMatrix(){
+        String s = "  ";
+        for(int header = 0; header < matrix.length;header++)
+            s += header + " ";
+        s+= "\r\n";
+
+        for(int row = 0; row < matrix.length; row++) {
+            s+= row;
+            for(int i = 0; i <  row;i++){
+                s+= "  ";
+            }
+            for(int col = 0; col < matrix[row].length; col++) {
+                s += " " + matrix[row][col];
+            }
+            s += "\r\n";
+        }
+
+        //s="";
+        //for(int i = 0; i < matrix.length; i++){
+        //    s = s + matrix[i].length + " ";
+        //}
+        return s;
+
+    }
+
+
+    /*
     public String printMatrix(){
         String s = "  ";
         for(int header = 0; header < matrix.length;header++)
@@ -109,6 +147,7 @@ public class Graphmu implements Graph  {
         }
         return s;
     }
+    */
 
     /** Set/Get the mark value for a vertex */
     public void setMark(int v, int val) { Mark[v] = val; }
